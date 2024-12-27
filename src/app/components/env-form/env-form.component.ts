@@ -130,12 +130,12 @@ export class EnvFormComponent {
       this.loading = false;
       return;
     }
-    const CLOUD_CONFIG: any = Object.entries(getBusinessConfigCloud).map(([key, value]) => {
+    const CLOUD_CONFIG: any = Object.entries(getBusinessConfigCloud).map(([key, value]: any) => {
       return {
         modificationName: key,
         name: key,
         defaultValue: value,
-        currentValue: value
+        currentValue: Array.isArray(value) || Object.entries(value).length ? key : value
       };
     });
 
@@ -151,8 +151,8 @@ export class EnvFormComponent {
       return item;
 
     });
-      
-      
+
+
     this.groupedFields = { CLOUD_CONFIG: updatedCloudConfig };
     this.envForm = this.fb.group(this.createFormGroup({ CLOUD_CONFIG: updatedCloudConfig }));
     this.envFormPreview = this.envForm.value;
