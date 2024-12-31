@@ -169,7 +169,7 @@ export class EnvFormComponent {
         this.getCloudConfig('CLOUD');
         break;
       default:
-        this.getEBSConfig('EBS');
+        this.getEBSConfig('CLOUD');
     }
   }
 
@@ -192,9 +192,13 @@ export class EnvFormComponent {
         if (res[0].ReturnStatus.toLowerCase() === 's') {
           this.toastr.success('Business config Updated Successfully', 'Success');
           console.log('res Success, ', res);
-          const businessConfig = await firstValueFrom(this.configService.getConfig(applicationType));
-          console.log('Updated Business Config:', businessConfig);        
-          this.envForm.setValue(businessConfig); 
+          setTimeout(
+            async () => {
+              const businessConfig = await firstValueFrom(this.configService.getConfig(applicationType));
+              console.log('Updated Business Config:', businessConfig);
+              this.envForm.setValue(businessConfig);
+            }, 1000 * 10
+          );
   
         } else {
           console.log('res Fail, ', res);

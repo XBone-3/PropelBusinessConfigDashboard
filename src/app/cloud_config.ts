@@ -784,6 +784,174 @@ export const referenceCloudConfig = [
         "defaultName": "Cycle Count Enabled Flag"
     },
     {
+        "name": "isNeededPeriodValidations",
+        "type": "select",
+        "required": true,
+        "description": "Enable period validation",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Needed Period Validations"
+    },
+    {
+        "name": "isTransactionHistoryDeleting",
+        "type": "select",
+        "required": true,
+        "description": "Enable transaction history deletion",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Transaction History Deleting"
+    },
+    {
+        "name": "isEnableAppStarter",
+        "type": "select",
+        "required": true,
+        "description": "Initialize app root page",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Enable App Starter"
+    },
+    {
+        "name": "isApkChangeLogsPageAvailable",
+        "type": "select",
+        "required": true,
+        "description": "Enable viewing APK version logs",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Apk Change Logs Page Available"
+    },
+    {
+        "name": "isEncryptedDb",
+        "type": "select",
+        "required": true,
+        "description": "Enable encrypted database",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Encrypted Db"
+    },
+    {
+        "name": "encryptKey",
+        "type": "text",
+        "required": true,
+        "description": "Key for data encryption",
+        "defaultName": "Encrypt Key"
+    },
+    {
+        "name": "isEnableAccessTokenInAPI",
+        "type": "select",
+        "required": true,
+        "description": "Enable access token for APIs",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Enable Access Token In API"
+    },
+    {
+        "name": "isUnlockItemNeeded",
+        "type": "select",
+        "required": true,
+        "description": "Enable item unlocking",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Item Unlock Enabled"
+    },
+    {
+        "name": "txnDeletionDay",
+        "type": "number",
+        "required": true,
+        "description": "Transaction deletion period (in days)",
+        "defaultName": "txn Deletion Day"
+    },
+    {
+        "name": "isPickConsolidation",
+        "type": "select",
+        "required": true,
+        "description": "Enables pick consolidation",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Pick Consolidation"
+    },
+    {
+        "name": "disableLogs",
+        "type": "select",
+        "required": true,
+        "description": "Disable logging",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Disable Logs"
+    },
+    {
+        "name": "isVersionCheckRequired",
+        "type": "select",
+        "required": true,
+        "description": "Enable app version check",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Version Check Required"
+    },
+    {
+        "name": "isLocatorControlled",
+        "type": "select",
+        "required": true,
+        "description": "Enable locator-controlled inventory",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "locator Controlled"
+    },
+    {
+        "name": "isIdleFeatureNeeded",
+        "type": "select",
+        "required": true,
+        "description": "Enable app idle alert",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Idle Feature Needed"
+    },
+    {
+        "name": "isEnableSSLpinning",
+        "type": "select",
+        "required": true,
+        "description": "Enable SSL certificate pinning",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Enable SSL Pinning"
+    },
+    {
+        "name": "isKeyboardRequiredOnInputTap",
+        "type": "select",
+        "required": true,
+        "description": "Enable keyboard visibility on input tap",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Keyboard Required On Input Tap"
+    },
+    {
         "name": "isDebugMode",
         "type": "select",
         "required": true,
@@ -793,5 +961,166 @@ export const referenceCloudConfig = [
             "false"
         ],
         "defaultName": "Debug Mode"
+    },
+    {
+        "name": "checkRootedAndroidDevice",
+        "type": "select",
+        "required": true,
+        "description": "Enable root device check",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Check Rooted Android Device"
+    },
+    {
+        "name": "csvPrimaryKeySperator",
+        "type": "text",
+        "required": true,
+        "description": "Separator for CSV key formatting",
+        "defaultName": "CSV PrimaryKey Seperator"
+    },
+    {
+        "name": "changeLanguageOptionsAvailable",
+        "type": "select",
+        "required": true,
+        "description": "Shows if language change options are available",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Change Language Options Available"
+    },
+    {
+        "name": "defaultAppLanguage",
+        "type": "text",
+        "required": true,
+        "description": "Specifies the default language for the app",
+        "defaultName": "Default App Language"
+    },
+    {
+        "name": "isStayLastPage",
+        "type": "select",
+        "required": true,
+        "description": "Controls staying on the current page based on conditions",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Stay Last Page"
+    },
+    {
+        "name": "isPackingDoneBeforePicking",
+        "type": "select",
+        "required": true,
+        "description": "Determines whether to call `getSalesOrdersForPacking` (false) or `getSalesOrdersForPicking` (true) in the SO PACK tile",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Packing Done Before Picking"
+    },
+    {
+        "name": "useFrontEgg",
+        "type": "select",
+        "required": true,
+        "description": "To use front-egg for authenticating, instead of EBS",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Use Front Egg"
+    },
+    {
+        "name": "encryptSecurityKey",
+        "type": "text",
+        "required": true,
+        "description": "Key used for encrypting data",
+        "defaultName": "Encrypt Security Key"
+    },
+    {
+        "name": "enableSecurity",
+        "type": "select",
+        "required": true,
+        "description": "Enables security features like encryption",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Enable Security"
+    },
+    {
+        "name": "enableCompleteSerialValidationForShipLPN",
+        "type": "select",
+        "required": true,
+        "description": "To do 100% serial-validation in SHIP_LPN",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Complete Serial Validation For ShipLPN"
+    },
+    {
+        "name": "enableSerialValidationForPackTile",
+        "type": "select",
+        "required": true,
+        "description": "Enables serial validation at the DeliveryId level",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Serial Validation For PackTile"
+    },
+    {
+        "name": "enableSerialValidationForPackTileAtDeliveryLevel",
+        "type": "select",
+        "required": true,
+        "description": "Enables serial validation at the DeliveryLineId level",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Serial Validation For PackTile At DeliveryLevel"
+    },
+    {
+        "name": "loadUnscheduledFromItemsTable",
+        "type": "select",
+        "required": true,
+        "description": "Controls loading unscheduled items",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Load Unscheduled From ItemsTable"
+    },
+    {
+        "name": "copyReqId",
+        "type": "select",
+        "required": true,
+        "description": "Enables serial validation at the DeliveryLineId level",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Copy ReqId"
+    },
+    {
+        "name": "reqIdDelimiter",
+        "type": "text",
+        "required": true,
+        "description": "Delimiter used to separate the message and request ID",
+        "defaultName": "ReqId Delimiter"
+
+    },
+    {
+        "name": "enableSuccessLogMode",
+        "type": "select",
+        "required": true,
+        "description": "",
+        "options": [
+            "true",
+            "false"
+        ],
+        "defaultName": "Success Log Mode"
     }
 ]

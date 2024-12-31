@@ -1,8 +1,6 @@
-
-const baseUrl = 'http://10.168.194.55:3000/';
-const baseGetUrl='https://testnode.propelapps.com/'
+const baseUrl = 'https://demonode.propelapps.com/'
 
 export const api_url = {
-    updateBusinessConfig: `${baseUrl}EBS/24D/businessConfig`,
-    getBusinessConfig: `${baseGetUrl}getBusinessConfig/`
+    updateBusinessConfig: `${baseUrl}EBS/24D/updateBusinessConfig`,
+    getBusinessConfig: `${baseUrl}getBusinessConfig/`
 }
