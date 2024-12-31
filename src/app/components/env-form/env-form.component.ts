@@ -188,7 +188,7 @@ export class EnvFormComponent {
         const res = await firstValueFrom(
           this.configService.performSaveConfigTransaction(requestPayload, applicationType)
         );
-        console.log(res);
+        console.info(res);
         if (res[0].ReturnStatus.toLowerCase() === 's') {
           this.toastr.success('Business config Updated Successfully', 'Success');
           console.log('res Success, ', res);
@@ -197,6 +197,7 @@ export class EnvFormComponent {
               const businessConfig = await firstValueFrom(this.configService.getConfig(applicationType));
               console.log('Updated Business Config:', businessConfig);
               this.envForm.setValue(businessConfig);
+              this.envFormPreview = this.envForm.value;   
             }, 1000 * 10
           );
   
