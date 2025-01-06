@@ -1,8 +1,8 @@
 import { CommonModule, JsonPipe, KeyValue, NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -18,6 +18,7 @@ import { SkeltonLoaderComponent } from '../skelton-loader/skelton-loader.compone
 import { referenceConfig } from '../../ebs_config';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { referenceCloudConfig } from '../../cloud_config';
+import { DialogComponent } from '../dialog/dialog.component';
 
 
 @Component({
@@ -47,18 +48,22 @@ import { referenceCloudConfig } from '../../cloud_config';
 })
 export class EnvFormComponent {
   envForm: FormGroup = new FormGroup({});
-  groupedFields = {};
+  groupedFields: any = {};
   envFormPreview: any;
   loading: boolean = false;
   getBusinessConfigEbs: any
   currentParamValue: string = '';
+  field: any;
+  selectedValue: string = '';
+  private currentDialog: MatDialogRef<any> | null = null;
 
   constructor(
     private fb: FormBuilder,
     private configService: EnvConfigService,
     public dialog: MatDialog,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private cdr: ChangeDetectorRef
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -125,7 +130,7 @@ export class EnvFormComponent {
 
   async getCloudConfig(applicationType: string = 'CLOUD'): Promise<void> {
     this.loading = true;
-    const getBusinessConfigCloud = await firstValueFrom(this.configService.getConfig(applicationType))
+    const getBusinessConfigCloud = await firstValueFrom(this.configService.getConfig(applicationType));
     if (!Object.entries(getBusinessConfigCloud).length) {
       this.loading = false;
       return;
@@ -135,10 +140,10 @@ export class EnvFormComponent {
         modificationName: key,
         name: key,
         defaultValue: value,
-        currentValue: Array.isArray(value) || Object.entries(value).length ? key : value
+        currentValue: (Array.isArray(value) || (typeof value === 'object' && Object.entries(value).length)) ? key : value,
+        options: Array.isArray(value) ? value : [] 
       };
     });
-
     const updatedCloudConfig = CLOUD_CONFIG.map((item: any) => {
       const matchedConfig: any = referenceCloudConfig.find(ref => ref.name === item.modificationName);
       if (Object.entries(matchedConfig).length) {
@@ -149,17 +154,61 @@ export class EnvFormComponent {
         item.options = matchedConfig.options || [];
       }
       return item;
-
     });
-
 
     this.groupedFields = { CLOUD_CONFIG: updatedCloudConfig };
     this.envForm = this.fb.group(this.createFormGroup({ CLOUD_CONFIG: updatedCloudConfig }));
     this.envFormPreview = this.envForm.value;
     this.loading = false;
+  }
+ 
+  openDialog(field: any): void {
+    const resp = field.options.find((option: any) => option.toLowerCase() === 'true');
+    if (resp) {
+      return;
+    }
 
+    const dialogConfig = {
+      data: {
+        ...field,
+        currentValue: this.envForm.get(field.name)?.value
+      },
+      width: 'auto',
+      height: '240px'
+    };
+
+    this.currentDialog = this.dialog.open(DialogComponent, dialogConfig);
+    this.currentDialog.afterClosed().subscribe((result) => {
+      if (!result?.value) {
+        return;
+      }
+      this.updateFieldValue(field, result);
+    });
   }
 
+  updateFieldValue(field: any, result: any): void {
+    if (!field || !field.options) {
+      console.error('Field or options are undefined');
+      return;
+    }
+    if (result.type === 'new') {
+      field.options = [...field.options, result.value];
+      this.envForm.get(field.name)?.setValue(result.value);
+    }
+    else if (result.type === 'edit') {
+      field.options = field.options.map((option: any, index: number) => {
+        if (index === result.index) {
+          return result.value;
+        }
+        return option;
+      });
+      this.envForm.get(field.name)?.setValue(result.value);
+    }
+    else if (result.type === 'select') {
+      this.envForm.get(field.name)?.setValue(result.value);
+    }
+    this.cdr.detectChanges();
+  }
   handleRoute(route: string | undefined): void {
     switch (route) {
       case '/EBS':

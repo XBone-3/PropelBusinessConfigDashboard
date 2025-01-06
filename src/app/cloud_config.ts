@@ -69,7 +69,7 @@ export const referenceCloudConfig = [
     },
     {
         "name": "serverOffsetTime",
-        "type": "number",
+        "type": "text",
         "required": true,
         "description": "Time difference between the server and local time",
         "defaultName": "Server OffSet Time"

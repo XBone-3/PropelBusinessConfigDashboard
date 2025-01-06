@@ -1,0 +1,48 @@
+<div class="dialog-wrapper">
+  <h2 mat-dialog-title>{{ data?.modificationName }}</h2>
+  <mat-dialog-content>
+    <div *ngIf="isEditing" class="input-container">
+      <mat-form-field>
+        <div>
+          <mat-label>Edit</mat-label>
+        </div>
+        <div>
+          <input matInput [formControl]="inputControl" (keyup.enter)="saveValue()">
+        </div>
+      </mat-form-field>
+    </div>
+    <div *ngIf="isNewValue" class="input-container">
+      <mat-form-field>
+        <div>
+          <mat-label>New</mat-label>
+        </div>
+        <div>
+          <input matInput [formControl]="inputControl" (keyup.enter)="saveValue()">
+        </div>
+      </mat-form-field>
+    </div>
+    <ng-container *ngIf="!isEditing && !isNewValue">
+      <div class="radio-options">
+        <mat-radio-group [(ngModel)]="selectedOption">
+          <mat-radio-button *ngFor="let option of data?.options" [value]="option">
+            {{ option }}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <p class="current-value" *ngIf="data?.currentValue">
+        Current Value: {{ data.currentValue }}
+      </p>
+    </ng-container>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="closeDialog()">Close</button>
+    <ng-container *ngIf="!isEditing && !isNewValue">
+      <button mat-button (click)="onNew()">New</button>
+      <button mat-button (click)="startEditing()" *ngIf="selectedOption">Edit</button>
+      <button mat-raised-button color="primary" (click)="saveValue()" *ngIf="selectedOption">Save</button>
+    </ng-container>
+    <button mat-raised-button color="primary" (click)="saveValue()" *ngIf="isEditing || isNewValue">
+      Save
+    </button>
+  </mat-dialog-actions>
+</div>
